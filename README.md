@@ -38,7 +38,7 @@ GET /persons?gender=0&start_age=18&end_age=70&count=100
 
 ### Cтэк
 
-python 3.10, requests, fastapi, sqlite3, docker, docker-compose
+python 3.10, fastapi, sqlite3, docker, docker-compose
 
 Для управления зависимостями используйте pip и pip-tools.
 

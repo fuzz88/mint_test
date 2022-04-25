@@ -45,3 +45,32 @@ class NameRepository:
             
         except Exception as e:
             logger.exception(e)
+
+
+    def get_second_names(self, count: int = 0, gender: int = 0) -> List[Tuple[Text, int]]:
+        """
+        pretty much the same as get_names but for second_names
+
+        copy/paste
+        """
+        try:
+            if gender != 0:
+                GENDER_WHERE = f" WHERE gender = {int(gender)}"
+            else:
+                GENDER_WHERE = ""
+
+            if count != 0:
+                COUNT_LIMIT = f" LIMIT {int(count)}"
+            else:
+                COUNT_LIMIT = ""
+            SELECT_SQL = "SELECT * FROM second_names" + GENDER_WHERE + COUNT_LIMIT + ";"
+
+            cursor = self.db.cursor()
+            cursor.execute(SELECT_SQL)
+            results = cursor.fetchall()
+            cursor.close()
+
+            return results
+            
+        except Exception as e:
+            logger.exception(e)

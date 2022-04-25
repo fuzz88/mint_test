@@ -45,7 +45,7 @@ python 3.10, requests, fastapi, sqlite3, docker, docker-compose
 
 ### Инструкция
 
-Управление зависимостями:
+Управление зависимостями (при запуске выполнять не нужно):
 ```
 pip install pip-tools  # установить pip-tools
 pip-compile            # создать requirements.txt на основе requirements.in

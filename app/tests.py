@@ -9,6 +9,7 @@
 import pytest
 import sqlite3
 import os
+from controllers import FakeIdentityDataController, FakeIdentityGenerator
 
 from repositories import NameRepository
 
@@ -24,9 +25,12 @@ def test_name_repository():
     assert len(repo.get_second_names(count=10)) == 10
 
 
-    
+def test_name_generation_chain():
+    """
+    проверим работоспособность всего механизма генерации фэйковых данных до FakeIdentity
+    """
+    repo = NameRepository(TEST_DATABASE)
+    generator = FakeIdentityGenerator(repo=repo)
+    controller = FakeIdentityDataController(generator=generator)
 
-
-
-
-
+    assert len(controller.generate_fake_identities(10, 14, 18, 0)) == 10

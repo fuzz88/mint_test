@@ -55,3 +55,8 @@ pip-compile            # создать requirements.txt на основе requi
 ```
 docker-compose up
 ```
+
+Тесты (в запущенном контейнере):
+```
+docker-compose exec mint_test bash /opt/tests.sh
+```

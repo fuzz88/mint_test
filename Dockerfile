@@ -8,7 +8,9 @@ RUN pip install --no-cache-dir -r /opt/requirements.txt
 
 COPY app/ /opt/app/
 COPY entrypoint.sh /opt/
+COPY tests.sh /opt/
 COPY database/ /opt/database/
+
 
 EXPOSE 8081
 

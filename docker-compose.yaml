@@ -1,0 +1,10 @@
+version: "3.5"
+
+services:
+  mint_test:
+    container_name: mint_test
+    image: mint_test:latest
+    build:
+      context: .
+    ports:
+      - "8081:8081"

@@ -33,7 +33,7 @@ __Параметры запроса:__
 
 *Пример:*
 
-GET /persons?sex=0&start_age=18&end_age=70&count=100
+GET /persons?gender=0&start_age=18&end_age=70&count=100
 
 
 ### Cтэк

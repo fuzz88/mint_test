@@ -4,13 +4,35 @@
 #
 #    pip-compile
 #
+anyio==3.5.0
+    # via starlette
+asgiref==3.5.0
+    # via uvicorn
 certifi==2021.10.8
     # via requests
 charset-normalizer==2.0.12
     # via requests
+click==8.1.2
+    # via uvicorn
+fastapi==0.75.2
+    # via -r requirements.in
+h11==0.13.0
+    # via uvicorn
 idna==3.3
-    # via requests
+    # via
+    #   anyio
+    #   requests
+pydantic==1.9.0
+    # via fastapi
 requests==2.27.1
     # via -r requirements.in
+sniffio==1.2.0
+    # via anyio
+starlette==0.17.1
+    # via fastapi
+typing-extensions==4.2.0
+    # via pydantic
 urllib3==1.26.9
     # via requests
+uvicorn==0.17.6
+    # via -r requirements.in

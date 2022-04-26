@@ -1,6 +1,7 @@
 import sqlite3
 from typing import List, Text, Tuple
 import logging
+from constants import Gender
 
 logger = logging.getLogger("repositories")
 
@@ -12,7 +13,7 @@ class NameRepository:
         except Exception as e:
             logger.exception(e)
 
-    def get_names(self, count: int = 0, gender: int = 0) -> List[Tuple[Text, int]]:
+    def get_names(self, count: int = 0, gender: int = Gender.BOTH) -> List[Tuple[Text, int]]:
         """
         get_names return list of tuples each with the name and the gender for the name.
 
@@ -25,7 +26,7 @@ class NameRepository:
             # мы приводим параметры к типу int.
             # плюс pydantic валидация входных данных.
 
-            if gender != 0:
+            if gender != Gender.BOTH:
                 GENDER_WHERE = f" WHERE gender = {int(gender)}"
             else:
                 GENDER_WHERE = ""
@@ -47,14 +48,14 @@ class NameRepository:
             logger.exception(e)
 
 
-    def get_second_names(self, count: int = 0, gender: int = 0) -> List[Tuple[Text, int]]:
+    def get_second_names(self, count: int = 0, gender: int = Gender.BOTH) -> List[Tuple[Text, int]]:
         """
         pretty much the same as get_names but for second_names
 
         copy/paste
         """
         try:
-            if gender != 0:
+            if gender != Gender.BOTH:
                 GENDER_WHERE = f" WHERE gender = {int(gender)}"
             else:
                 GENDER_WHERE = ""

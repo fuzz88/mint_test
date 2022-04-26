@@ -5,6 +5,8 @@ from typing import Generator, List, Text, Tuple
 
 from dtos import FakeIdentity
 from repositories import NameRepository
+from constants import Gender
+
 
 """
 TODO: развязать все объекты через интерфейсы (абстрактные классы), т.е. реализовать правильную иерархию классов.
@@ -71,7 +73,7 @@ class FakeIdentityGenerator:
                 date_of_birth = self.pick_date_of_birth(
                     start_age=start_age, end_age=end_age
                 )
-                gndr = "муж." if gender == 1 else "жен."
+                gndr = "муж." if gender == Gender.MALE else "жен."
                 # TODO: obviously fake) refactor
                 login = str(uuid.uuid4())
                 password = str(uuid.uuid4())
@@ -99,34 +101,28 @@ class FakeIdentityDataController:
         self, count: int, start_age: int, end_age: int, gender_pick: int
     ) -> List[FakeIdentity]:
         results = []
+        generated = 0
+        if self.male_generator is None:
+            self.male_generator = self.generator.get_identity_generator(
+                    gender=Gender.MALE, start_age=start_age, end_age=end_age
+                )
+        if self.female_generator is None:
+            self.female_generator = self.generator.get_identity_generator(
+                    gender=Gender.FEMALE, start_age=start_age, end_age=end_age
+                )
         match gender_pick:
-            case 1:
-                male_generator = self.generator.get_identity_generator(
-                    gender=1, start_age=start_age, end_age=end_age
-                )
-                generated = 0
+            case Gender.MALE:
                 while generated < count:
-                    results.append(next(male_generator))
+                    results.append(next(self.male_generator))
                     generated += 1
-            case 2:
-                generated = 0
-                female_generator = self.generator.get_identity_generator(
-                    gender=2, start_age=start_age, end_age=end_age
-                )
+            case Gender.FEMALE:
                 while generated < count:
-                    results.append(next(female_generator))
+                    results.append(next(self.female_generator))
                     generated += 1
-            case 0:
-                generated = 0
-                male_generator = self.generator.get_identity_generator(
-                    gender=1, start_age=start_age, end_age=end_age
-                )
-                female_generator = self.generator.get_identity_generator(
-                    gender=2, start_age=start_age, end_age=end_age
-                )
+            case Gender.BOTH:
                 while generated < count:
                     # если нужны личности обоих полов, то генерируем 50 на 50.
-                    person = next(male_generator) if random.random() > 0.5 else next(female_generator)
+                    person = next(self.male_generator) if random.random() > 0.5 else next(self.female_generator)
                     results.append(person)
                     generated += 1
         

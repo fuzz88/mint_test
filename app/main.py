@@ -3,6 +3,7 @@ from fastapi import FastAPI, Query
 
 from controllers import FakeIdentityDataController, FakeIdentityGenerator
 from repositories import NameRepository
+from constants import Gender
 
 app = FastAPI()
 
@@ -15,7 +16,7 @@ controller = FakeIdentityDataController(
 async def persons(
     start_age: int = Query(18, ge=1, le=99),
     end_age: int = Query(95, ge=1, le=99),
-    gender: int = Query(0, ge=0, le=2),
+    gender: int = Query(Gender.BOTH, ge=Gender.BOTH, le=Gender.FEMALE),
     count: int = Query(10, ge=1, le=1000),
 ):
 
